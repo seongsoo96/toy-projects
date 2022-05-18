@@ -1,3 +1,6 @@
+# 회사 내 메뉴 주문할 때 편하게 하려고 만들 토이프로젝트 입니다.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
