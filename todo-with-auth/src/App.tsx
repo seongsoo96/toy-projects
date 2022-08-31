@@ -1,3 +1,4 @@
+import { Toolbar } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';

@@ -80,65 +80,64 @@ export default function NavBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div>
-      <Box sx={{ display: 'flex' }}>
-        <AppBar component="nav">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component={Link}
-              to="/"
-              sx={{
-                flexGrow: 1,
-                display: { xs: 'none', sm: 'block' },
-                textDecoration: 'none',
-                boxShadow: 'none',
-                color: '#fff',
-              }}>
-              Todo App
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {navItems.map((item) => (
-                <Button
-                  key={item.name}
-                  component={Link}
-                  to={item.href}
-                  sx={{ color: '#fff' }}>
-                  {item.name}
-                </Button>
-              ))}
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Box component="nav">
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+    <Box sx={{ display: 'flex' }}>
+      <AppBar component="nav">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
             sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': {
-                boxSizing: 'border-box',
-                width: drawerWidth,
-              },
+              flexGrow: 1,
+              display: { xs: 'none', sm: 'block' },
+              textDecoration: 'none',
+              boxShadow: 'none',
+              color: '#fff',
             }}>
-            {drawer}
-          </Drawer>
-        </Box>
-        <Toolbar />
+            Todo App
+          </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {navItems.map((item) => (
+              <Button
+                key={item.name}
+                component={Link}
+                to={item.href}
+                sx={{ color: '#fff' }}>
+                {item.name}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+      <Box component="nav">
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+            },
+          }}>
+          {drawer}
+        </Drawer>
       </Box>
-    </div>
+      <Toolbar />
+    </Box>
   );
 }
