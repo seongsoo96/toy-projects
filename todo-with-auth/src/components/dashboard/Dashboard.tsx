@@ -1,5 +1,12 @@
-import React from 'react';
+import AddTodo from '../todo/AddTodo';
+import Todos from '../todo/Todos';
 
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      Dashboard
+      <AddTodo />
+      <Todos />
+    </>
+  );
 }
