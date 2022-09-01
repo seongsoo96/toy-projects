@@ -1,34 +1,51 @@
-import React from 'react';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 
-type Inputs = {
-  example: string;
-  exampleRequired: string;
-};
+interface FormData {
+  email: string;
+  password: string;
+}
+
+const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
 
 export default function SignIn() {
   const {
     register,
+    // formState: { errors },
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
-  console.log(watch('example')); // watch input value by passing the name of it
+  } = useForm<FormData>();
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input defaultValue="test" {...register('example')} />
-
-      {/* include validation with required or other standard HTML validation rules */}
-      <input {...register('exampleRequired', { required: true })} />
-      {/* errors will return when field validation fails  */}
-      {errors.exampleRequired && <span>This field is required</span>}
-
-      <input type="submit" />
-    </form>
+    <Container maxWidth="xs">
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 10 }}>
+        <Typography variant="h4" sx={{ mb: 4 }}>
+          Sign In
+        </Typography>
+        <TextField
+          id="email"
+          label="email"
+          variant="standard"
+          placeholder="이메일 입력"
+          fullWidth
+          {...register('email')}
+        />
+        <TextField
+          id="password"
+          label="password"
+          variant="standard"
+          type="password"
+          placeholder="비밀번호 입력"
+          fullWidth
+          {...register('password')}
+        />
+        <Button type="submit" variant="contained">
+          SignIn
+        </Button>
+      </Box>
+    </Container>
   );
 }

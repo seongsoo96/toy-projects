@@ -5,6 +5,7 @@ import { ErrorMessage } from '@hookform/error-message';
 interface FormData {
   email: string;
   password: string;
+  passwordCheck: string;
 }
 
 const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
@@ -12,6 +13,7 @@ const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
 export default function SighUp() {
   const {
     register,
+    watch,
     formState: { errors },
     handleSubmit,
   } = useForm<FormData>();
@@ -36,7 +38,6 @@ export default function SighUp() {
             validate: (email) =>
               (email.includes('@') && email.includes('.')) ||
               '이메일 형식을 지켜주세요.',
-            // 이메일 조건
           })}
         />
         <ErrorMessage
@@ -44,7 +45,6 @@ export default function SighUp() {
           name="email"
           render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
         />
-
         <TextField
           id="password"
           label="password"
@@ -63,6 +63,25 @@ export default function SighUp() {
         <ErrorMessage
           errors={errors}
           name="password"
+          render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
+        />
+        <TextField
+          id="passwordCheck"
+          label="passwordCheck"
+          variant="standard"
+          type="password"
+          placeholder="비밀번호 확인"
+          fullWidth
+          {...register('passwordCheck', {
+            required: true,
+            validate: (passwordCheck) =>
+              passwordCheck === watch('password') ||
+              '비밀번호가 일치하지 않습니다.',
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="passwordCheck"
           render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
         />
         <Button type="submit" variant="contained">
