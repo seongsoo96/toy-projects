@@ -13,7 +13,7 @@ import { useRecoilState } from 'recoil';
 import todosState from '../../store/atoms/todosState';
 import { firebaseApp, firestore } from '../../config/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import ITodo from '../../store/types/Todo';
 
 export default function Todos() {
@@ -21,11 +21,14 @@ export default function Todos() {
 
   React.useEffect(() => {
     async function loadTodos() {
-      const querySnapshot = await getDocs(collection(firestore, 'todos'));
-      const todosInFirestore = querySnapshot.docs.map(
-        (doc) => doc.data() as ITodo
-      );
-      console.log(todosInFirestore);
+      const q = query(collection(firestore, 'todos'), orderBy('date'));
+      const querySnapshot = await getDocs(q);
+      const todosInFirestore = querySnapshot.docs.map((doc) => {
+        return {
+          todo: doc.data().todo,
+          date: doc.data().date.toDate(),
+        };
+      });
       setTodos(todosInFirestore);
     }
     loadTodos();
