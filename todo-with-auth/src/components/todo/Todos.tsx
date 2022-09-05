@@ -25,6 +25,7 @@ export default function Todos() {
       const querySnapshot = await getDocs(q);
       const todosInFirestore = querySnapshot.docs.map((doc) => {
         return {
+          id: doc.data().id,
           todo: doc.data().todo,
           date: doc.data().date.toDate(),
         };
@@ -42,9 +43,9 @@ export default function Todos() {
         <TableHead>
           <TableRow>
             <TableCell>Todos</TableCell>
-            <TableCell align="right">CreatedAt</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell align="center">CreatedAt</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
