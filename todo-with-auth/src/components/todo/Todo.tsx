@@ -1,10 +1,11 @@
 import { IconButton, TableCell, TableRow } from '@mui/material';
 import React from 'react';
 import UnCheck from '@mui/icons-material/CheckBoxOutlineBlank';
+import Checked from '@mui/icons-material/CheckBox';
 import Delete from '@mui/icons-material/DeleteForever';
 import ITodo from '../../store/types/Todo';
 import { format } from 'date-fns';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import todosState from '../../store/atoms/todosState';
 import {
   collection,
@@ -12,16 +13,39 @@ import {
   doc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { firestore } from '../../config/firebaseConfig';
 
-const Todo: React.FC<ITodo> = ({ id, todo, date }) => {
+const Todo: React.FC<ITodo> = ({ id, todo, date, checked }) => {
   const [recoilTodos, setRecoilTodos] = useRecoilState(todosState);
+
+  const handleCheckboxClick = async () => {
+    try {
+      const checkedRef = doc(firestore, 'todos', id);
+      await updateDoc(checkedRef, {
+        checked: !checked,
+      });
+      const updatedTodo = {
+        id: id,
+        todo: todo,
+        date: date,
+        checked: !checked,
+      };
+      const idx = recoilTodos.findIndex((todo) => todo.id === id);
+      const newRecoilTodos = recoilTodos.filter((a) => a);
+      newRecoilTodos.splice(idx, 1, updatedTodo);
+      setRecoilTodos(() => [...newRecoilTodos]);
+    } catch (error) {
+      alert(`update failed: ${error}`);
+    }
+  };
+
   const handleDeleteClick = async () => {
     try {
       await deleteDoc(doc(firestore, 'todos', id));
-      setRecoilTodos((todos) => todos.filter((todo) => todo.id !== id));
+      setRecoilTodos((todo) => todo.filter((todo) => todo.id !== id));
     } catch (error) {
       alert(`delete failed: ${error}`);
     }
@@ -34,8 +58,8 @@ const Todo: React.FC<ITodo> = ({ id, todo, date }) => {
           {todo}
         </TableCell>
         <TableCell align="center">{format(date, 'yyyy/MM/dd')}</TableCell>
-        <TableCell align="center">
-          <UnCheck />
+        <TableCell onClick={handleCheckboxClick} align="center">
+          <IconButton>{checked ? <Checked /> : <UnCheck />}</IconButton>
         </TableCell>
         <TableCell align="center">
           <IconButton onClick={handleDeleteClick} aria-label="delete">

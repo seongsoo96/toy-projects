@@ -28,6 +28,7 @@ export default function Todos() {
           id: doc.data().id,
           todo: doc.data().todo,
           date: doc.data().date.toDate(),
+          checked: doc.data().checked,
         };
       });
       setTodos(todosInFirestore);

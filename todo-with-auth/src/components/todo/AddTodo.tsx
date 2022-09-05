@@ -10,13 +10,19 @@ import todosState from '../../store/atoms/todosState';
 const AddTodo = () => {
   const navigate = useNavigate();
   const setTodosState = useSetRecoilState(todosState);
-  const [todo, setTodo] = useState({ id: '', todo: '', date: new Date() });
+  const [todo, setTodo] = useState({
+    id: '',
+    todo: '',
+    date: new Date(),
+    checked: false,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({
       id: '',
       todo: e.target.value,
       date: new Date(),
+      checked: false,
     });
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,13 +33,14 @@ const AddTodo = () => {
         id: newTodoRef.id,
         todo: todo.todo,
         date: todo.date,
+        checked: todo.checked,
       };
       await setDoc(newTodoRef, newTodo);
       setTodosState((todos) => [...todos, todo]);
     } catch (error) {
       alert(`An error occurred: ${error}`);
     }
-    setTodo({ id: '', todo: '', date: new Date() });
+    setTodo({ id: '', todo: '', date: new Date(), checked: false });
     navigate('/');
   };
 
