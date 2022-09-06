@@ -1,6 +1,9 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../config/firebaseConfig';
+import { useNavigate } from 'react-router';
 
 interface FormData {
   email: string;
@@ -8,15 +11,34 @@ interface FormData {
   passwordCheck: string;
 }
 
-const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
-
 export default function SighUp() {
   const {
     register,
+    setValue,
     watch,
     formState: { errors },
     handleSubmit,
   } = useForm<FormData>();
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const email = data.email;
+    const password = data.password;
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        alert('회원가입이 완료되었습니다.');
+        navigate('/signin');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        alert(`회원가입에 실패하였습니다. 원인: ${errorCode}`);
+        setValue('email', '');
+        setValue('password', '');
+        setValue('passwordCheck', '');
+        navigate('/signup');
+      });
+  };
 
   return (
     <Container maxWidth="xs">
