@@ -1,20 +1,45 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import {
+  browserLocalPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { auth } from '../../config/firebaseConfig';
+import { useRecoilState } from 'recoil';
+import authState from '../../store/atoms/authState';
+import Auth from '../../store/types/Auth';
+import { useNavigate } from 'react-router';
 
 interface FormData {
   email: string;
   password: string;
 }
 
-const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
-
 export default function SignIn() {
-  const {
-    register,
-    // formState: { errors },
-    handleSubmit,
-  } = useForm<FormData>();
+  const [loginState, setLoginState] = useRecoilState(authState);
+  const { register, setValue, handleSubmit } = useForm<FormData>();
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const email = data.email;
+    const password = data.password;
+    setPersistence(auth, browserLocalPersistence).then(() => {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+          setLoginState(true);
+          navigate('/');
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          alert(`로그인에 실패하였습니다. 원인: ${errorCode}`);
+          setValue('email', '');
+          setValue('password', '');
+          navigate('/signin');
+        });
+    });
+  };
 
   return (
     <Container maxWidth="xs">
@@ -48,4 +73,7 @@ export default function SignIn() {
       </Box>
     </Container>
   );
+}
+function ignInWithEmailAndPassword(auth: Auth, email: any, password: any) {
+  throw new Error('Function not implemented.');
 }
