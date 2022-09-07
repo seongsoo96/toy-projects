@@ -15,30 +15,21 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useRecoilValue } from 'recoil';
+import authState from '../../store/atoms/authState';
+import SideBarItem from './SideBarItem';
+import NavBarItem from './NavBarItem';
 
 interface Props {
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-const navItems = [
-  {
-    name: 'SignOut',
-    href: '/signin',
-  },
-  {
-    name: 'SignUp',
-    href: '/signup',
-  },
-  {
-    name: 'SignIn',
-    href: '/signin',
-  },
-];
 
 export default function NavBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const loginState = useRecoilValue(authState);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -61,17 +52,14 @@ export default function NavBar(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem
-            key={item.name}
-            component={Link}
-            to={item.href}
-            disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {loginState ? (
+          <SideBarItem name={'SignOut'} href={'/signout'} />
+        ) : (
+          <>
+            <SideBarItem name={'SignIn'} href={'/signin'} />
+            <SideBarItem name={'SignUp'} href={'/signup'} />
+          </>
+        )}
       </List>
     </Box>
   );
@@ -105,15 +93,14 @@ export default function NavBar(props: Props) {
             Todo App
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.name}
-                component={Link}
-                to={item.href}
-                sx={{ color: '#fff' }}>
-                {item.name}
-              </Button>
-            ))}
+            {loginState ? (
+              <NavBarItem name={'SignOut'} href={'/signout'} />
+            ) : (
+              <>
+                <NavBarItem name={'SignIn'} href={'/signin'} />
+                <NavBarItem name={'SignUp'} href={'/signup'} />
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
