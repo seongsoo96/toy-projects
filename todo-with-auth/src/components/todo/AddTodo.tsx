@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { firebaseApp, firestore } from '../../config/firebaseConfig';
 import Todo from '../../store/types/Todo';
 import { useNavigate } from 'react-router';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import todosState from '../../store/atoms/todosState';
+import authState from '../../store/atoms/authState';
 
 const AddTodo = () => {
   const navigate = useNavigate();
   const setTodosState = useSetRecoilState(todosState);
+  const loginState = useRecoilValue(authState);
   const [todo, setTodo] = useState({
     id: '',
     todo: '',
@@ -28,7 +30,9 @@ const AddTodo = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const newTodoRef = doc(collection(firestore, 'todos'));
+      const uid = loginState.uid;
+      console.log(loginState.uid);
+      const newTodoRef = doc(collection(firestore, uid));
       const newTodo: Todo = {
         id: newTodoRef.id,
         todo: todo.todo,
@@ -39,6 +43,7 @@ const AddTodo = () => {
       setTodosState((todos) => [...todos, todo]);
     } catch (error) {
       alert(`An error occurred: ${error}`);
+      console.log(error);
     }
     setTodo({ id: '', todo: '', date: new Date(), checked: false });
     navigate('/');

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -15,10 +15,12 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import authState from '../../store/atoms/authState';
 import SideBarItem from './SideBarItem';
 import NavBarItem from './NavBarItem';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../config/firebaseConfig';
 
 interface Props {
   window?: () => Window;
@@ -29,10 +31,17 @@ const drawerWidth = 240;
 export default function NavBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const loginState = useRecoilValue(authState);
+  const [loginState, setLoginState] = useRecoilState(authState);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleSignOutClick = async () => {
+    await signOut(auth);
+    setLoginState({ uid: '', isLogined: false });
+    navigate('/signin');
   };
 
   const drawer = (
@@ -52,8 +61,15 @@ export default function NavBar(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {loginState ? (
-          <SideBarItem name={'SignOut'} href={'/signout'} />
+        {loginState.isLogined ? (
+          <ListItem
+            component="button"
+            onClick={handleSignOutClick}
+            disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary="SignOut" />
+            </ListItemButton>
+          </ListItem>
         ) : (
           <>
             <SideBarItem name={'SignIn'} href={'/signin'} />
@@ -93,8 +109,10 @@ export default function NavBar(props: Props) {
             Todo App
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {loginState ? (
-              <NavBarItem name={'SignOut'} href={'/signout'} />
+            {loginState.isLogined ? (
+              <Button onClick={handleSignOutClick} sx={{ color: '#fff' }}>
+                SignOut
+              </Button>
             ) : (
               <>
                 <NavBarItem name={'SignIn'} href={'/signin'} />

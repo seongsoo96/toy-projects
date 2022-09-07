@@ -9,32 +9,40 @@ import {
   Paper,
 } from '@mui/material';
 import Todo from './Todo';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import todosState from '../../store/atoms/todosState';
 import { firebaseApp, firestore } from '../../config/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore';
+import { collectionGroup, doc, getDoc } from 'firebase/firestore';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import ITodo from '../../store/types/Todo';
+import authState from '../../store/atoms/authState';
 
 export default function Todos() {
   const [todos, setTodos] = useRecoilState(todosState);
+  const loginState = useRecoilValue(authState);
 
   React.useEffect(() => {
+    const uid = loginState.uid;
+
     async function loadTodos() {
-      const q = query(collection(firestore, 'todos'), orderBy('date'));
+      alert('2222');
+      const q = query(collection(firestore, uid), orderBy('date'));
       const querySnapshot = await getDocs(q);
-      const todosInFirestore = querySnapshot.docs.map((doc) => {
-        return {
-          id: doc.data().id,
-          todo: doc.data().todo,
-          date: doc.data().date.toDate(),
-          checked: doc.data().checked,
-        };
-      });
-      setTodos(todosInFirestore);
+      if (querySnapshot) {
+        const todosInFirestore = querySnapshot.docs.map((doc) => {
+          return {
+            id: doc.data().id,
+            todo: doc.data().todo,
+            date: doc.data().date.toDate(),
+            checked: doc.data().checked,
+          };
+        });
+        setTodos(todosInFirestore);
+        console.log('loadTodos useEffect 실행되었음.');
+      }
     }
     loadTodos();
-  }, [setTodos]);
+  }, [loginState, setTodos]);
 
   return (
     <TableContainer

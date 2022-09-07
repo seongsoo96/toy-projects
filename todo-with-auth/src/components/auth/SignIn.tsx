@@ -11,6 +11,7 @@ import { useRecoilState } from 'recoil';
 import authState from '../../store/atoms/authState';
 import Auth from '../../store/types/Auth';
 import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 interface FormData {
   email: string;
@@ -28,7 +29,8 @@ export default function SignIn() {
     setPersistence(auth, browserLocalPersistence).then(() => {
       signInWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
-          setLoginState(true);
+          const user = userCredential.user;
+          setLoginState({ uid: user.uid, isLogined: true });
           navigate('/');
         })
         .catch((error) => {
@@ -73,7 +75,4 @@ export default function SignIn() {
       </Box>
     </Container>
   );
-}
-function ignInWithEmailAndPassword(auth: Auth, email: any, password: any) {
-  throw new Error('Function not implemented.');
 }

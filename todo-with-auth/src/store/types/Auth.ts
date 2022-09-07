@@ -1,7 +1,6 @@
 type Auth = {
   uid: string;
-  email: string;
-  token: string;
+  isLogined: boolean;
 };
 
 export default Auth;
