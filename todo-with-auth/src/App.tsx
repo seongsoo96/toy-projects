@@ -17,11 +17,14 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       user
-        ? setLoginState({ uid: user.uid, isLogined: true })
-        : setLoginState({ uid: '', isLogined: false });
+        ? setLoginState({
+            uid: user.uid,
+            isLogined: true,
+            displayName: user.displayName ?? '',
+          })
+        : setLoginState({ uid: '', isLogined: false, displayName: '' });
     });
   }, [setLoginState]);
-  console.log(`loginState.isLogined : ${loginState.isLogined}`);
 
   return (
     <>

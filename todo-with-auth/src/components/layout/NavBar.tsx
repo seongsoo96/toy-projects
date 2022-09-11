@@ -40,7 +40,7 @@ export default function NavBar(props: Props) {
 
   const handleSignOutClick = async () => {
     await signOut(auth);
-    setLoginState({ uid: '', isLogined: false });
+    setLoginState({ uid: '', isLogined: false, displayName: '' });
     navigate('/signin');
   };
 
@@ -110,9 +110,11 @@ export default function NavBar(props: Props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {loginState.isLogined ? (
-              <Button onClick={handleSignOutClick} sx={{ color: '#fff' }}>
-                SignOut
-              </Button>
+              <>
+                <Button onClick={handleSignOutClick} sx={{ color: '#fff' }}>
+                  SignOut
+                </Button>
+              </>
             ) : (
               <>
                 <NavBarItem name={'SignIn'} href={'/signin'} />

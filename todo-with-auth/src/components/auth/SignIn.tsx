@@ -30,7 +30,11 @@ export default function SignIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        setLoginState({ uid: user.uid, isLogined: true });
+        setLoginState({
+          uid: user.uid,
+          isLogined: true,
+          displayName: user.displayName ?? '',
+        });
         navigate('/');
       })
       .catch((error) => {

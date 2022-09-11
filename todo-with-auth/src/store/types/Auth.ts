@@ -1,5 +1,6 @@
 type Auth = {
   uid: string;
+  displayName: string;
   isLogined: boolean;
 };
 

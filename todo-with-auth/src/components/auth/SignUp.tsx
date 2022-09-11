@@ -1,7 +1,7 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../config/firebaseConfig';
 import { useNavigate } from 'react-router';
 
@@ -26,7 +26,11 @@ export default function SighUp() {
     const password = data.password;
 
     await createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then(async (userCredential) => {
+        const displayName = email.split('@')[0];
+        await updateProfile(userCredential.user, {
+          displayName: displayName,
+        });
         alert('회원가입이 완료되었습니다.');
         navigate('/signin');
       })

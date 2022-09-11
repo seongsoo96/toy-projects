@@ -54,6 +54,10 @@ const AddTodo = () => {
         component="form"
         sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 10 }}
         onSubmit={handleSubmit}>
+        <Typography variant="h6">
+          Welcome{' '}
+          <span style={{ color: '#1976d2' }}>{loginState.displayName}</span>
+        </Typography>
         <Typography variant="h4" sx={{ mb: 4 }}>
           Add Todo
         </Typography>
