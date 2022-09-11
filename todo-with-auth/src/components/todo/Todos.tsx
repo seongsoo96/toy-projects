@@ -25,7 +25,6 @@ export default function Todos() {
     const uid = loginState.uid;
 
     async function loadTodos() {
-      alert('2222');
       const q = query(collection(firestore, uid), orderBy('date'));
       const querySnapshot = await getDocs(q);
       if (querySnapshot) {

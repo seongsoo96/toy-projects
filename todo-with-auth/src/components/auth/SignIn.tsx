@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import {
   browserLocalPersistence,
+  browserSessionPersistence,
   setPersistence,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
@@ -26,21 +27,19 @@ export default function SignIn() {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const email = data.email;
     const password = data.password;
-    setPersistence(auth, browserLocalPersistence).then(() => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then(async (userCredential) => {
-          const user = userCredential.user;
-          setLoginState({ uid: user.uid, isLogined: true });
-          navigate('/');
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          alert(`로그인에 실패하였습니다. 원인: ${errorCode}`);
-          setValue('email', '');
-          setValue('password', '');
-          navigate('/signin');
-        });
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        setLoginState({ uid: user.uid, isLogined: true });
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        alert(`로그인에 실패하였습니다. 원인: ${errorCode}`);
+        setValue('email', '');
+        setValue('password', '');
+        navigate('/signin');
+      });
   };
 
   return (
