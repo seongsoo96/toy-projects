@@ -9,6 +9,8 @@ import Loading from 'components/layout/Loading';
 import NavBar from 'components/layout/NavBar';
 import { auth } from 'config/firebaseConfig';
 import { authState } from 'store/atoms';
+import Footer from 'components/layout/Footer';
+import Main from 'components/layout/Main';
 
 function App() {
   const [loginState, setLoginState] = useRecoilState(authState);
@@ -28,22 +30,25 @@ function App() {
     <>
       <BrowserRouter>
         <NavBar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              loginState.isLogined === undefined ? (
-                <Loading />
-              ) : loginState.isLogined ? (
-                <Dashboard />
-              ) : (
-                <SignIn />
-              )
-            }
-          />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-        </Routes>
+        <Main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                loginState.isLogined === undefined ? (
+                  <Loading />
+                ) : loginState.isLogined ? (
+                  <Dashboard />
+                ) : (
+                  <SignIn />
+                )
+              }
+            />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+          </Routes>
+        </Main>
+        <Footer />
       </BrowserRouter>
     </>
   );

@@ -50,7 +50,12 @@ const AddTodo = () => {
     <Container maxWidth="sm">
       <Box
         component="form"
-        sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 10 }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+          mt: 4,
+        }}
         onSubmit={handleSubmit}>
         <Typography variant="h6">
           Welcome{' '}

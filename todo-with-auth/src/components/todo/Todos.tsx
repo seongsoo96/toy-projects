@@ -44,7 +44,13 @@ export default function Todos() {
       component={Paper}
       sx={{ maxWidth: 'sm', mx: 'auto', my: 3 }}>
       <Table sx={{ minWidth: 'sm' }} aria-label="simple table">
-        <TableHead>
+        <TableHead
+          sx={{
+            position: 'sticky',
+            top: '0',
+            backgroundColor: '#fff',
+            zIndex: '1',
+          }}>
           <TableRow>
             <TableCell>Todos</TableCell>
             <TableCell align="center">CreatedAt</TableCell>
