@@ -51,7 +51,11 @@ const Todo: React.FC<ITodo> = ({ id, todo, date, checked }) => {
         <TableCell component="th" scope="row">
           {todo}
         </TableCell>
-        <TableCell align="center">{format(date, 'yyyy/MM/dd')}</TableCell>
+        <TableCell
+          align="center"
+          sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+          {format(date, 'yyyy/MM/dd')}
+        </TableCell>
         <TableCell onClick={handleCheckboxClick} align="center">
           <IconButton>{checked ? <Checked /> : <UnCheck />}</IconButton>
         </TableCell>

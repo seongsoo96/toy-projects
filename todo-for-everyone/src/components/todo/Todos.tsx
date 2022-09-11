@@ -53,7 +53,11 @@ export default function Todos() {
           }}>
           <TableRow>
             <TableCell>Todos</TableCell>
-            <TableCell align="center">CreatedAt</TableCell>
+            <TableCell
+              align="center"
+              sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+              CreatedAt
+            </TableCell>
             <TableCell align="center">Status</TableCell>
             <TableCell align="center">Delete</TableCell>
           </TableRow>

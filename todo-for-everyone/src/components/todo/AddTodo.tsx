@@ -57,11 +57,11 @@ const AddTodo = () => {
           mt: 4,
         }}
         onSubmit={handleSubmit}>
-        <Typography variant="h6">
+        <Typography variant="h6" sx={{ fontSize: { xs: '1rem' } }}>
           Welcome{' '}
           <span style={{ color: '#1976d2' }}>{loginState.displayName}</span>
         </Typography>
-        <Typography variant="h4" sx={{ mb: 4 }}>
+        <Typography variant="h5" sx={{ mb: 1, fontSixe: { xs: '1.5rem' } }}>
           Add Todo
         </Typography>
         <TextField
@@ -71,9 +71,10 @@ const AddTodo = () => {
           placeholder="write your todo"
           onChange={handleChange}
           variant="filled"
+          size="small"
         />
 
-        <Button type="submit" variant="contained">
+        <Button size="small" type="submit" variant="contained">
           Add
         </Button>
       </Box>
