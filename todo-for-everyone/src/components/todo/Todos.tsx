@@ -64,7 +64,7 @@ export default function Todos() {
         </TableHead>
         <TableBody>
           {todos.map((todo) => (
-            <Todo key={todo.todo} {...todo} />
+            <Todo key={todo.id} {...todo} />
           ))}
         </TableBody>
       </Table>

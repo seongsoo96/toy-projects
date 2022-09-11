@@ -38,7 +38,7 @@ const AddTodo = () => {
         checked: todo.checked,
       };
       await setDoc(newTodoRef, newTodo);
-      setTodosState((todos) => [...todos, todo]);
+      setTodosState((todos) => [...todos, newTodo]);
     } catch (error) {
       alert(`An error occurred: ${error}`);
     }
