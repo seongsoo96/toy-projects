@@ -1,16 +1,14 @@
-import { CircularProgress, Toolbar } from '@mui/material';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import SignIn from './components/auth/SignIn';
-import SignUp from './components/auth/SignUp';
-import Dashboard from './components/dashboard/Dashboard';
-import Loading from './components/layout/Loading';
-import NavBar from './components/layout/NavBar';
-import Todos from './components/todo/Todos';
-import { auth } from './config/firebaseConfig';
-import authState from './store/atoms/authState';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import SignIn from 'components/auth/SignIn';
+import SignUp from 'components/auth/SignUp';
+import Dashboard from 'components/dashboard/Dashboard';
+import Loading from 'components/layout/Loading';
+import NavBar from 'components/layout/NavBar';
+import { auth } from 'config/firebaseConfig';
+import { authState } from 'store/atoms';
 
 function App() {
   const [loginState, setLoginState] = useRecoilState(authState);

@@ -1,18 +1,10 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import {
-  browserLocalPersistence,
-  browserSessionPersistence,
-  setPersistence,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
-import { auth } from '../../config/firebaseConfig';
-import { useRecoilState } from 'recoil';
-import authState from '../../store/atoms/authState';
-import Auth from '../../store/types/Auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from 'config/firebaseConfig';
+import { useSetRecoilState } from 'recoil';
+import { authState } from 'store/atoms';
 import { useNavigate } from 'react-router';
-import { useEffect } from 'react';
 
 interface FormData {
   email: string;
@@ -20,7 +12,7 @@ interface FormData {
 }
 
 export default function SignIn() {
-  const [loginState, setLoginState] = useRecoilState(authState);
+  const setLoginState = useSetRecoilState(authState);
   const { register, setValue, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
 

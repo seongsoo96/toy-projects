@@ -1,4 +1,9 @@
 import * as React from 'react';
+import Todo from './Todo';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { authState, todosState } from 'store/atoms';
+import { firestore } from 'config/firebaseConfig';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import {
   Table,
   TableBody,
@@ -8,14 +13,6 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-import Todo from './Todo';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import todosState from '../../store/atoms/todosState';
-import { firebaseApp, firestore } from '../../config/firebaseConfig';
-import { collectionGroup, doc, getDoc } from 'firebase/firestore';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import ITodo from '../../store/types/Todo';
-import authState from '../../store/atoms/authState';
 
 export default function Todos() {
   const [todos, setTodos] = useRecoilState(todosState);
@@ -37,7 +34,6 @@ export default function Todos() {
           };
         });
         setTodos(todosInFirestore);
-        console.log('loadTodos useEffect 실행되었음.');
       }
     }
     loadTodos();

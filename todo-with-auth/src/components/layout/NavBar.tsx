@@ -1,6 +1,12 @@
 import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { authState } from 'store/atoms';
+import SideBarItem from './SideBarItem';
+import { signOut } from 'firebase/auth';
+import { auth } from 'config/firebaseConfig';
+import NavBarItem from './NavBarItem';
 import {
   AppBar,
   Box,
@@ -15,12 +21,6 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import authState from '../../store/atoms/authState';
-import SideBarItem from './SideBarItem';
-import NavBarItem from './NavBarItem';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../config/firebaseConfig';
 
 interface Props {
   window?: () => Window;

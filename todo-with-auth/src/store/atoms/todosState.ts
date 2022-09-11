@@ -1,9 +1,7 @@
 import { atom } from 'recoil';
-import Todo from '../types/Todo';
+import Todo from 'store/types/Todo';
 
-const todosState = atom<Todo[]>({
+export const todosState = atom<Todo[]>({
   key: 'todos-state',
   default: [] as Todo[],
 });
-
-export default todosState;

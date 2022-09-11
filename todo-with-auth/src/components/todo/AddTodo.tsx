@@ -1,12 +1,11 @@
-import { collection, addDoc, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { firebaseApp, firestore } from '../../config/firebaseConfig';
-import Todo from '../../store/types/Todo';
+import { firestore } from 'config/firebaseConfig';
+import Todo from 'store/types/Todo';
 import { useNavigate } from 'react-router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import todosState from '../../store/atoms/todosState';
-import authState from '../../store/atoms/authState';
+import { authState, todosState } from 'store/atoms';
 
 const AddTodo = () => {
   const navigate = useNavigate();
@@ -42,7 +41,6 @@ const AddTodo = () => {
       setTodosState((todos) => [...todos, todo]);
     } catch (error) {
       alert(`An error occurred: ${error}`);
-      console.log(error);
     }
     setTodo({ id: '', todo: '', date: new Date(), checked: false });
     navigate('/');

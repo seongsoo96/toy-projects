@@ -3,22 +3,12 @@ import React from 'react';
 import UnCheck from '@mui/icons-material/CheckBoxOutlineBlank';
 import Checked from '@mui/icons-material/CheckBox';
 import Delete from '@mui/icons-material/DeleteForever';
-import ITodo from '../../store/types/Todo';
+import ITodo from 'store/types/Todo';
 import { format } from 'date-fns';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import todosState from '../../store/atoms/todosState';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import { firestore } from '../../config/firebaseConfig';
-import authState from '../../store/atoms/authState';
-import { idText } from 'typescript';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { firestore } from 'config/firebaseConfig';
+import { authState, todosState } from 'store/atoms';
 
 const Todo: React.FC<ITodo> = ({ id, todo, date, checked }) => {
   const [recoilTodos, setRecoilTodos] = useRecoilState(todosState);

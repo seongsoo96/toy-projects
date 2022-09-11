@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
-import authState from '../../store/atoms/authState';
-import AddTodo from '../todo/AddTodo';
-import Todos from '../todo/Todos';
+import { authState } from 'store/atoms';
+import AddTodo from 'components/todo/AddTodo';
+import Todos from 'components/todo/Todos';
 
 export default function Dashboard() {
   const loginState = useRecoilValue(authState);
