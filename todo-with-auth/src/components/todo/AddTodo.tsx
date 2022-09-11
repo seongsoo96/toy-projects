@@ -31,7 +31,6 @@ const AddTodo = () => {
     e.preventDefault();
     try {
       const uid = loginState.uid;
-      console.log(loginState.uid);
       const newTodoRef = doc(collection(firestore, uid));
       const newTodo: Todo = {
         id: newTodoRef.id,

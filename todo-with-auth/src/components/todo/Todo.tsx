@@ -5,7 +5,7 @@ import Checked from '@mui/icons-material/CheckBox';
 import Delete from '@mui/icons-material/DeleteForever';
 import ITodo from '../../store/types/Todo';
 import { format } from 'date-fns';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import todosState from '../../store/atoms/todosState';
 import {
   collection,
@@ -17,13 +17,17 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from '../../config/firebaseConfig';
+import authState from '../../store/atoms/authState';
+import { idText } from 'typescript';
 
 const Todo: React.FC<ITodo> = ({ id, todo, date, checked }) => {
   const [recoilTodos, setRecoilTodos] = useRecoilState(todosState);
+  const loginState = useRecoilValue(authState);
+  const uid = loginState.uid;
 
   const handleCheckboxClick = async () => {
     try {
-      const checkedRef = doc(firestore, 'todos', id);
+      const checkedRef = doc(firestore, uid, id);
       await updateDoc(checkedRef, {
         checked: !checked,
       });
@@ -44,7 +48,7 @@ const Todo: React.FC<ITodo> = ({ id, todo, date, checked }) => {
 
   const handleDeleteClick = async () => {
     try {
-      await deleteDoc(doc(firestore, 'todos', id));
+      await deleteDoc(doc(firestore, uid, id));
       setRecoilTodos((todo) => todo.filter((todo) => todo.id !== id));
     } catch (error) {
       alert(`delete failed: ${error}`);
