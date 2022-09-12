@@ -1,6 +1,12 @@
 ## 👨‍👨‍👧 Todo-for-everyone
 
-- 어디서든 누구나 이용 가능한 Todo App
+### TodoApp에 Auth를 더하다.
+
+- TodoApp을 배포시켜 PC나 모바일 언제 어디서든 사용 가능한 TodoApp입니다.
+- 계정 생성 후 Todo를 추가하면 어디서든 볼 수 있도록 만들었습니다.
+- 각 계정별로 그 계정에 맞는 Todo가 생성됩니다.
+  <br />
+  <br />
 - 데모 : https://todo-for-everyone.vercel.app/
   - 테스트용 계정
   - id: test@gmail.com
