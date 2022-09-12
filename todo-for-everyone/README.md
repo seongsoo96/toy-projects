@@ -79,3 +79,7 @@ npm start
 yarn
 yarn start
 ```
+
+## 📌 이슈
+
+[Update Status시 발생한 어려움(삽질)](https://suave-carbon-935.notion.site/update-Status-3fc2bb42e7884e93b2d68f68086e1efc)
