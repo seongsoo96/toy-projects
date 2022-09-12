@@ -52,11 +52,15 @@ cd todo-for-everyone
 ### firebase 설정 후 실행 가능합니다.
 
 - root 폴더 위치에 .env파일 생성.
-- firebase에 firestore 설정 후에 받을 수 있는 firebaseConfig를 .env에 등록해준다.
-- fireConfig
-  - <img width="589" alt="스크린샷 2022-09-12 오후 4 45 54" src="https://user-images.githubusercontent.com/71514285/189600405-feb0a1cf-1108-40ad-a294-28ef2baffc82.png">
-- .env 설정
-  - <img width="908" alt="스크린샷 2022-09-12 오후 4 37 25" src="https://user-images.githubusercontent.com/71514285/189600655-b4d4a000-c2d0-4961-80c9-fa9f7b3d85e1.png">
+- firebase에 firestore 설정 후 생성되는 firebaseConfig를 .env에 등록해준다.
+
+#### fireConfig
+
+<img width="589" alt="스크린샷 2022-09-12 오후 4 45 54" src="https://user-images.githubusercontent.com/71514285/189600405-feb0a1cf-1108-40ad-a294-28ef2baffc82.png"><br />
+
+#### .env 설정
+
+<img width="908" alt="스크린샷 2022-09-12 오후 4 37 25" src="https://user-images.githubusercontent.com/71514285/189600655-b4d4a000-c2d0-4961-80c9-fa9f7b3d85e1.png">
 
 ### 실행 (yarn을 권장드립니다.)
 
