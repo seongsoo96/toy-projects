@@ -28,22 +28,26 @@ const AddTodo = () => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const uid = loginState.uid;
-      const newTodoRef = doc(collection(firestore, uid));
-      const newTodo: Todo = {
-        id: newTodoRef.id,
-        todo: todo.todo,
-        date: todo.date,
-        checked: todo.checked,
-      };
-      await setDoc(newTodoRef, newTodo);
-      setTodosState((todos) => [...todos, newTodo]);
-    } catch (error) {
-      alert(`An error occurred: ${error}`);
+    if (todo.todo.length > 0) {
+      try {
+        const uid = loginState.uid;
+        const newTodoRef = doc(collection(firestore, uid));
+        const newTodo: Todo = {
+          id: newTodoRef.id,
+          todo: todo.todo,
+          date: todo.date,
+          checked: todo.checked,
+        };
+        await setDoc(newTodoRef, newTodo);
+        setTodosState((todos) => [...todos, newTodo]);
+      } catch (error) {
+        alert(`An error occurred: ${error}`);
+      }
+      setTodo({ id: '', todo: '', date: new Date(), checked: false });
+      navigate('/');
+    } else {
+      alert(`todo를 입력하지 않았습니다.`);
     }
-    setTodo({ id: '', todo: '', date: new Date(), checked: false });
-    navigate('/');
   };
 
   return (

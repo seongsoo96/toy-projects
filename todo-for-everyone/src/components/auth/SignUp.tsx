@@ -1,7 +1,11 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from 'firebase/auth';
 import { auth } from 'config/firebaseConfig';
 import { useNavigate } from 'react-router';
 
@@ -31,6 +35,7 @@ export default function SighUp() {
         await updateProfile(userCredential.user, {
           displayName: displayName,
         });
+        signOut(auth);
         alert('회원가입이 완료되었습니다.');
         navigate('/signin');
       })
