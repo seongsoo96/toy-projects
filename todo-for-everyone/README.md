@@ -23,7 +23,7 @@
 ## 📗 기술 스택
 
 - Front End
-  - Typescript, React, Recoil, MUI
+  - TypeScript, React, Recoil, MUI
 - Back End
   - Firebase
 - 배포
