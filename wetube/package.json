@@ -1,28 +1,24 @@
 {
   "name": "wetube",
   "version": "1.0.0",
-  "description": "The best way to watch videos.",
+  "description": "The best way to watch video",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seongsoo96/wetube-reloaded.git"
+    "url": "https://github.com/seongsoo96/toy-projects.git"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js"
   },
-  "author": "seongsoo",
+  "author": "Seongsoo96",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/seongsoo96/wetube-reloaded/issues"
-  },
-  "homepage": "https://github.com/seongsoo96/wetube-reloaded#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/node": "^7.14.7",
-    "@babel/preset-env": "^7.14.7",
-    "nodemon": "^2.0.8"
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "nodemon": "^2.0.20"
   }
 }
