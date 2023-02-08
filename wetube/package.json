@@ -7,12 +7,13 @@
     "url": "https://github.com/seongsoo96/toy-projects.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Seongsoo96",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^6.9.0",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
